@@ -1,1 +1,10 @@
-@import "tailwindcss"
+@import "tailwindcss";
+
+@layer utilities {
+  .text-stroke {
+    -webkit-text-stroke-width: 3px; /* Thickness of stroke */
+    -webkit-text-stroke-color: #cccccc49; /* Stroke color */
+    -webkit-text-fill-color: transparent; /* Optional: only outline */
+    text-shadow: 2px 2px 6px #dddddd70; /* Shadow color & blur */
+  }
+}
