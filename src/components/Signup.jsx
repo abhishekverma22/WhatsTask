@@ -46,7 +46,7 @@ const Signup = () => {
       </div>
 
       {/* Right side: Signup Form */}
-      <div className="lg:w-1/2 bg-amber-100 px-5 sm:px-10 py-10 flex flex-col justify-center rounded-lg shadow-lg">
+      <div className="lg:w-1/2 bg-white px-5 sm:px-10 py-10 flex flex-col justify-center rounded-lg shadow-lg">
         {/* Logo */}
         <div className="flex justify-center mb-8">
           <img src={logo} alt="logo" className="w-24 sm:w-32" />
@@ -86,7 +86,7 @@ const Signup = () => {
                 type="text"
                 placeholder="John"
                 name="firstName"
-                className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+                className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
               />
             </div>
 
@@ -100,7 +100,7 @@ const Signup = () => {
                 type="text"
                 placeholder="Doe"
                 name="lastName"
-                className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+                className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
               />
             </div>
           </div>
@@ -113,7 +113,7 @@ const Signup = () => {
               type="email"
               placeholder="example@whatstask.com"
               name="email"
-              className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+              className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
             />
           </div>
 
@@ -127,7 +127,7 @@ const Signup = () => {
               type="password"
               placeholder="Enter your password"
               name="password"
-              className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+              className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
             />
           </div>
 
@@ -141,7 +141,7 @@ const Signup = () => {
               type="password"
               placeholder="Re-enter your password"
               name="confirmPassword"
-              className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+              className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
             />
           </div>
 
@@ -151,7 +151,7 @@ const Signup = () => {
             </label>
             <select
               name="role"
-              className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700">
+              className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200">
               <option value="user">User</option>
               <option value="admin">Admin</option>
             </select>
@@ -166,7 +166,7 @@ const Signup = () => {
               type="text"
               placeholder="+91 1234567890"
               name="phone"
-              className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+              className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
             />
           </div>
 
@@ -178,23 +178,23 @@ const Signup = () => {
               type="text"
               placeholder="Team / Company"
               name="team"
-              className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-red-700"
+              className="w-full border border-gray-400 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-200"
             />
           </div>
 
           <button
             type="submit"
-            className="w-full py-3 bg-red-900 text-white rounded text-base hover:bg-red-800 transition mt-2">
+            className="w-full  text-[20px] py-3 bg-green-600 text-white rounded text-base hover:bg-green-500 cursor-pointer transition">
             Sign Up
           </button>
         </form>
 
         {/* Login Link */}
-        <div className="mt-5 text-center text-sm text-gray-500">
+        <div className="mt-5 text-center text-md text-gray-500">
           Already have an account?{" "}
           <span
             onClick={goToLogin}
-            className="text-red-900 font-medium hover:underline cursor-pointer">
+            className="text-blue-600 font-medium hover:underline cursor-pointer">
             Log in here
           </span>
         </div>
