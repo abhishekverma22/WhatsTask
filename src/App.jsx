@@ -7,7 +7,6 @@ import { Toaster } from "react-hot-toast";
 
 // Public components
 import Login from "./components/Login";
-import Signup from "./components/Signup";
 import About from "./components/About";
 
 // Dashboard components
@@ -31,7 +30,6 @@ const App = () => {
         <Routes>
           {/* Public routes */}
           <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
           <Route path="/about" element={<About />} />
 
           {/* Protected routes */}

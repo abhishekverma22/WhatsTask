@@ -15,7 +15,7 @@ const UsersTable = ({ users, onUserClick }) => {
       <div className="overflow-y-auto overflow-x-auto pr-2 pb-12"> 
         <table className="min-w-full border border-gray-200 text-center bg-white shadow-md rounded-lg capitalize">
           <thead className="bg-gray-100 text-gray-700 uppercase text-sm sticky top-0 z-10">
-            <tr className="text-[20px]  ">
+            <tr>
               <th className="px-4 py-3 border">Sl. No</th>
               <th className="px-4 py-3 border">Name</th>
               <th className="px-4 py-3 border">Role</th>

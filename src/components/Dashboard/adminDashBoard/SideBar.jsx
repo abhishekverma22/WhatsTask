@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import logo from "../../../assets/myspace.png";
 import {
@@ -13,43 +13,52 @@ import {
   LogOut,
   User,
 } from "lucide-react";
+import { fetchTodayTasks } from "../../../firebase/taskServices";
 import { logoutUser } from "../../../firebase/userServices";
 import { toast } from "react-hot-toast";
 
 export const SideBar = ({ toggleSidebar }) => {
+  const navigate = useNavigate();
+  const [todayCount, setTodayCount] = useState(0);
+
+  // Fetch today's tasks when sidebar mounts
+  useEffect(() => {
+    const loadTodayTasks = async () => {
+      try {
+        const todayTasks = await fetchTodayTasks();
+        setTodayCount(todayTasks.length);
+      } catch (err) {
+        console.error("Failed to fetch today's tasks:", err);
+      }
+    };
+    loadTodayTasks();
+  }, []);
+
   const SideBarLinks = [
     { name: "Dashboard", icon: LayoutDashboard, path: "/admin-dashboard" },
-    { name: "Task Assign", icon: ClipboardCheck, path: "/admin-dashboard/task-assign" },
-    { name: "Task Status", icon: Activity, path: "/admin-dashboard/task-status" },
+    { name: "Task Assign To User", icon: ClipboardCheck, path: "/admin-dashboard/task-assign" },
     { name: "All Users", icon: Users, path: "/admin-dashboard/all-users" },
-    { name: "Create Group", icon: MessageSquareMore, path: "/admin-dashboard/create-group" },
     { name: "Show New Notification", icon: Bell, path: "/admin-dashboard/new-notification", badge: 8 },
-    { name: "Today Alert", icon: Calendar, path: "/admin-dashboard/today-alert", badge: 3 },
+    { name: "Today Alert", icon: Calendar, path: "/admin-dashboard/today-alert", badge: todayCount },
     { name: "Add New User", icon: UserPlus, path: "/admin-dashboard/add-user" },
+    { name: "Create Group", icon: MessageSquareMore, path: "/admin-dashboard/create-group" },
     { name: "My Profile", icon: User, path: "/admin-dashboard/user-profile" },
   ];
 
-  const navigate = useNavigate();
-
   const handleLogout = () => {
-    // Dismiss any existing logout toast
     toast.dismiss("logout-toast");
-
-    // Show logout confirmation toast in center
     toast(
       (t) => (
         <div className="flex flex-col gap-4 p-6 bg-white rounded-lg shadow-lg w-80">
-          <p className="text-gray-800 font-medium text-center">
-            Are you sure you want to logout?
-          </p>
+          <p className="text-gray-800 font-medium text-center">Are you sure you want to logout?</p>
           <div className="flex justify-center gap-4 mt-2">
             <button
               onClick={async () => {
-                toast.dismiss(t.id); // dismiss this toast
+                toast.dismiss(t.id);
                 try {
-                  await logoutUser(); // firebase logout
+                  await logoutUser();
                   toast.success("Logged out successfully!");
-                  navigate("/login"); // redirect to login page
+                  navigate("/login");
                 } catch (err) {
                   toast.error(err.message || "Logout failed");
                 }
@@ -68,14 +77,10 @@ export const SideBar = ({ toggleSidebar }) => {
         </div>
       ),
       {
-        id: "logout-toast",               // unique ID to prevent duplicates
-        duration: Infinity,               // stays until user clicks Yes/Cancel
-        position: "top-center",           // base position
-        style: {
-          top: "50%",                     // vertical center
-          left: "50%",                    // horizontal center
-          transform: "translate(-50%, -50%)", // exact center
-        },
+        id: "logout-toast",
+        duration: Infinity,
+        position: "top-center",
+        style: { top: "50%", left: "50%", transform: "translate(-50%, -50%)" },
       }
     );
   };
@@ -107,8 +112,7 @@ export const SideBar = ({ toggleSidebar }) => {
                 <Icon size={24} />
                 <span>{link.name}</span>
               </div>
-
-              {link.badge && (
+              {link.badge > 0 && (
                 <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
                   {link.badge}
                 </span>

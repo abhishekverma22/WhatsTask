@@ -4,7 +4,14 @@ import {
   signInWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getDoc,
+  serverTimestamp,
+  collection,
+  getDocs,
+} from "firebase/firestore";
 import toast from "react-hot-toast";
 
 export const registerUser = async (userData) => {
@@ -74,7 +81,6 @@ export const loginWithRole = async (email, password) => {
   }
 };
 
-
 export const logoutUser = async () => {
   try {
     await signOut(auth);
@@ -83,4 +89,7 @@ export const logoutUser = async () => {
   }
 };
 
-
+export const fetchAllUsers = async () => {
+  const snap = await getDocs(collection(db, "users"));
+  return snap.docs.map((doc) => ({ uid: doc.id, ...doc.data() }));
+};

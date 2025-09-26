@@ -1,84 +1,58 @@
-import React, { useState } from "react";
-import { assignTask } from "./taskServices";
-import toast from "react-hot-toast";
+import React, { useEffect, useState } from "react";
+import { fetchAllUsers } from "../../../firebase/userServices";
+import HeaderBar from "./HeaderBar";
+import UserList from "./UserList";
+import TaskModal from "./TaskModal";
 
-const TaskAssign = ({ allUsers }) => {
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [dueDate, setDueDate] = useState("");
-  const [priority, setPriority] = useState("Medium");
-  const [status, setStatus] = useState("Pending");
+const TaskAssign = () => {
+  const [users, setUsers] = useState([]);
+  const [search, setSearch] = useState("");
+  const [deptFilter, setDeptFilter] = useState("");
+  const [modalUser, setModalUser] = useState(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!title || !description || !dueDate) return toast.error("Fill all fields");
+  useEffect(() => {
+    const load = async () => {
+      const all = await fetchAllUsers();
+      setUsers(all);
+    };
+    load();
+  }, []);
 
-    const assignedTo = allUsers.map(u => u.uid); // assign to all users
+  const departments = [
+    ...new Set(users.map((u) => u.department).filter(Boolean)),
+  ];
 
-    const response = await assignTask({
-      title,
-      description,
-      dueDate: new Date(dueDate),
-      priority,
-      status,
-      assignedTo,
-    });
-
-    if (response.success) {
-      toast.success("Task assigned!");
-      setTitle("");
-      setDescription("");
-      setDueDate("");
-      setPriority("Medium");
-      setStatus("Pending");
-    } else {
-      toast.error("Error assigning task");
-    }
-  };
+  const filteredUsers = users.filter((u) => {
+    const fullName = `${u.firstName || ""} ${u.lastName || ""}`.toLowerCase();
+    const dept = u.department || "";
+    return (
+      fullName.includes(search.toLowerCase()) &&
+      (deptFilter ? dept === deptFilter : true)
+    );
+  });
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
-      <input
-        type="text"
-        placeholder="Task Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        className="border p-2 rounded"
-      />
-      <textarea
-        placeholder="Task Description"
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
-        className="border p-2 rounded"
-      />
-      <input
-        type="date"
-        value={dueDate}
-        onChange={(e) => setDueDate(e.target.value)}
-        className="border p-2 rounded"
-      />
-      <select
-        value={priority}
-        onChange={(e) => setPriority(e.target.value)}
-        className="border p-2 rounded"
-      >
-        <option value="Low">Low</option>
-        <option value="Medium">Medium</option>
-        <option value="High">High</option>
-      </select>
-      <select
-        value={status}
-        onChange={(e) => setStatus(e.target.value)}
-        className="border p-2 rounded"
-      >
-        <option value="Pending">Pending</option>
-        <option value="In Progress">In Progress</option>
-        <option value="Completed">Completed</option>
-      </select>
-      <button type="submit" className="bg-blue-500 text-white py-2 rounded">
-        Assign Task
-      </button>
-    </form>
+    <div className="relative  bg-gray-200">
+      {/* Sticky Header */}
+      <div className="sticky top-0 z-20 bg-gray-200 border-b border-gray-300 p-6">
+        <HeaderBar
+          search={search}
+          setSearch={setSearch}
+          deptFilter={deptFilter}
+          setDeptFilter={setDeptFilter}
+          departments={departments}
+        />
+      </div>
+
+      {/* Scrollable Content */}
+      <div className="p-6 space-y-4">
+        <UserList users={filteredUsers} onAddTask={setModalUser} />
+      </div>
+
+      {modalUser && (
+        <TaskModal user={modalUser} onClose={() => setModalUser(null)} />
+      )}
+    </div>
   );
 };
 
