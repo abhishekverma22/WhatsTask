@@ -1,7 +1,6 @@
 // src/App.jsx
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import { UserProvider } from "./context/UserContext";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
 
@@ -24,7 +23,7 @@ import UserProfile from "./components/allLinks/UserProfile";
 
 const App = () => {
   return (
-    <UserProvider>
+    <>
       <Toaster position="top-right" reverseOrder={false} />
       <Router>
         <Routes>
@@ -56,7 +55,7 @@ const App = () => {
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
-    </UserProvider>
+    </>
   );
 };
 

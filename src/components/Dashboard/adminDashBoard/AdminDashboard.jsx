@@ -33,25 +33,22 @@ const AdminDashboard = () => {
       {/* Right Side */}
       <div className="flex-1 flex flex-col">
         {/* Navbar */}
-        <header className="h-[70px] flex items-center justify-between px-3 sm:px-5 bg-white border-b border-gray-300 shadow-sm">
-          {/* Left: Hamburger */}
-          <div className="flex items-center">
-            <button
-              className="md:hidden p-2 rounded-md bg-white/30 backdrop-blur-md shadow-md flex items-center justify-center"
-              onClick={toggleSidebar}
-            >
-              {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </div>
+        <header className="h-[70px] flex items-center justify-between px-3 sm:px-5 bg-transparent border-b border-gray-300">
+          {/* Hamburger for small screens */}
+          <button
+            className="md:hidden p-2 rounded-md bg-white/30 backdrop-blur-md shadow-md flex items-center justify-center"
+            onClick={toggleSidebar}
+          >
+            {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
 
-          {/* Center: NavSection */}
-          <div className="flex-1 flex justify-center">
-            <NavSection />
-          </div>
+          {/* Time & User Image */}
+          <NavSection />
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 overflow-y-auto ">
+        <main className="flex-1 overflow-y-auto">
+          {/* Render active component here */}
           <Outlet />
         </main>
       </div>
