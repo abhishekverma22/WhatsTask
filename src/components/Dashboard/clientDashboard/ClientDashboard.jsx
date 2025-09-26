@@ -1,12 +1,11 @@
 import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
 import NavSection from "./NavSection";
 import { SideBar } from "./SideBar";
-import MainSection from "./MainSection";
 import { Menu, X } from "lucide-react";
 
 const ClientDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   return (
@@ -17,18 +16,18 @@ const ClientDashboard = () => {
           fixed md:relative top-0 left-0 z-50
           w-64 bg-white shadow-md h-full
           transform transition-transform duration-300 ease-in-out
-          ${
-            sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } md:translate-x-0
-        `}>
-        <SideBar />
+          ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
+        `}
+      >
+        <SideBar toggleSidebar={toggleSidebar} />
       </aside>
 
       {/* Overlay for small devices */}
       {sidebarOpen && (
         <div
           className="fixed inset-0 bg-black/30 z-40 md:hidden"
-          onClick={toggleSidebar}></div>
+          onClick={toggleSidebar}
+        ></div>
       )}
 
       {/* Right Side */}
@@ -38,7 +37,8 @@ const ClientDashboard = () => {
           {/* Hamburger for small screens */}
           <button
             className="md:hidden p-2 rounded-md bg-white/30 backdrop-blur-md shadow-md flex items-center justify-center"
-            onClick={toggleSidebar}>
+            onClick={toggleSidebar}
+          >
             {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
 
@@ -47,8 +47,9 @@ const ClientDashboard = () => {
         </header>
 
         {/* Main Content */}
-        <main className="flex-1 p-4 overflow-y-auto">
-          <MainSection />
+        <main className="flex-1 overflow-y-auto">
+          {/* Render active component here */}
+          <Outlet />
         </main>
       </div>
     </div>

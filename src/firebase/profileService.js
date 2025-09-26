@@ -1,4 +1,3 @@
-
 import { auth, db } from "./firebaseConfig";
 import {
   updateEmail,
@@ -10,12 +9,19 @@ import { doc, updateDoc } from "firebase/firestore";
 import toast from "react-hot-toast";
 
 // Update Auth (email/password)
-export const updateAuthCredentials = async ({ newEmail, newPassword, currentPassword }) => {
+export const updateAuthCredentials = async ({
+  newEmail,
+  newPassword,
+  currentPassword,
+}) => {
   if (!auth.currentUser) throw new Error("No user logged in");
 
   try {
     if (newEmail !== auth.currentUser.email || newPassword) {
-      const credential = EmailAuthProvider.credential(auth.currentUser.email, currentPassword);
+      const credential = EmailAuthProvider.credential(
+        auth.currentUser.email,
+        currentPassword
+      );
       await reauthenticateWithCredential(auth.currentUser, credential);
     }
 
@@ -46,4 +52,10 @@ export const updateUserProfile = async (uid, profileData) => {
     toast.error(error.message || "Failed to update profile");
     throw error;
   }
+};
+
+// update users details
+export const updateUserInFirestore = async (id, updatedData) => {
+  const userRef = doc(db, "users", id);
+  await updateDoc(userRef, updatedData);
 };

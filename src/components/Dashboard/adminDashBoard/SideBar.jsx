@@ -19,9 +19,9 @@ import { toast } from "react-hot-toast";
 export const SideBar = ({ toggleSidebar }) => {
   const SideBarLinks = [
     { name: "Dashboard", icon: LayoutDashboard, path: "/admin-dashboard" },
-    { name: "All Users", icon: Users, path: "/admin-dashboard/all-users" },
     { name: "Task Assign", icon: ClipboardCheck, path: "/admin-dashboard/task-assign" },
     { name: "Task Status", icon: Activity, path: "/admin-dashboard/task-status" },
+    { name: "All Users", icon: Users, path: "/admin-dashboard/all-users" },
     { name: "Create Group", icon: MessageSquareMore, path: "/admin-dashboard/create-group" },
     { name: "Show New Notification", icon: Bell, path: "/admin-dashboard/new-notification", badge: 8 },
     { name: "Today Alert", icon: Calendar, path: "/admin-dashboard/today-alert", badge: 3 },
