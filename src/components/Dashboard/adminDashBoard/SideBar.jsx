@@ -5,8 +5,6 @@ import {
   LayoutDashboard,
   Users,
   ClipboardCheck,
-  Activity,
-  MessageSquareMore,
   Bell,
   Calendar,
   UserPlus,
@@ -41,7 +39,6 @@ export const SideBar = ({ toggleSidebar }) => {
     { name: "Show New Notification", icon: Bell, path: "/admin-dashboard/new-notification", badge: 8 },
     { name: "Today Alert", icon: Calendar, path: "/admin-dashboard/today-alert", badge: todayCount },
     { name: "Add New User", icon: UserPlus, path: "/admin-dashboard/add-user" },
-    { name: "Create Group", icon: MessageSquareMore, path: "/admin-dashboard/create-group" },
     { name: "My Profile", icon: User, path: "/admin-dashboard/user-profile" },
   ];
 

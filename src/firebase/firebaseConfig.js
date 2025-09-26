@@ -1,16 +1,15 @@
 import { initializeApp } from "firebase/app";
-import { getAuth  } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 const firebaseConfig = {
-  apiKey: "AIzaSyCC8_yJxRtMLRz9mIGPmNSEa5IDGYSmL4g",
-  authDomain: "whatstask-f18db.firebaseapp.com",
-  projectId: "whatstask-f18db",
-  storageBucket: "whatstask-f18db.firebasestorage.app",
-  messagingSenderId: "475104281758",
-  appId: "1:475104281758:web:93f62703034eabfad2e78f",
-  measurementId: "G-L510JCZGXE"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID, 
 };
-
 
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
