@@ -1,13 +1,11 @@
 import React, { useState } from "react";
+import { Outlet } from "react-router-dom";
 import NavSection from "./NavSection";
 import { SideBar } from "./SideBar";
-import MainSection from "./MainSection";
 import { Menu, X } from "lucide-react";
 
 const AdminDashboard = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [activeComponent, setActiveComponent] = useState("Dashboard"); 
-
   const toggleSidebar = () => setSidebarOpen(!sidebarOpen);
 
   return (
@@ -21,7 +19,7 @@ const AdminDashboard = () => {
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} md:translate-x-0
         `}
       >
-        <SideBar setActiveComponent={setActiveComponent} activeComponent={activeComponent} />
+        <SideBar toggleSidebar={toggleSidebar} />
       </aside>
 
       {/* Overlay for small devices */}
@@ -50,7 +48,8 @@ const AdminDashboard = () => {
 
         {/* Main Content */}
         <main className="flex-1 overflow-y-auto">
-          <MainSection activeComponent={activeComponent} />
+          {/* Render active component here */}
+          <Outlet />
         </main>
       </div>
     </div>
