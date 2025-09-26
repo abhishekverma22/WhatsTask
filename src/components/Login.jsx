@@ -29,7 +29,7 @@ const Login = () => {
       setUser(firebaseUser);
       setProfile(profileData);
 
-      if (profileData.role === "admin") navigate("/admin-dashboard");
+      if ((profileData.role || "").toLowerCase()=== "admin") navigate("/admin-dashboard");
       else navigate("/user-dashboard");
     } catch {
       // Error toast handled in service

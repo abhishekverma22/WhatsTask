@@ -7,8 +7,8 @@ import { doc, onSnapshot } from "firebase/firestore";
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [profile, setProfile] = useState(null);
+  const [user, setUser] = useState(null);       // firebase auth user
+  const [profile, setProfile] = useState(null); // logged-in user profile
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -18,11 +18,11 @@ export const UserProvider = ({ children }) => {
       if (firebaseUser) {
         setUser(firebaseUser);
 
-        // Subscribe to Firestore profile changes
+        // Only subscribe to logged-in user's Firestore document
         const docRef = doc(db, "users", firebaseUser.uid);
         unsubscribeProfile = onSnapshot(docRef, (snap) => {
           if (snap.exists()) {
-            setProfile(snap.data());
+            setProfile(snap.data()); // only update logged-in user profile
           } else {
             setProfile(null);
           }

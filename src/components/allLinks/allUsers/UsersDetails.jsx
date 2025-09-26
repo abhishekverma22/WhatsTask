@@ -5,6 +5,7 @@ const UsersDetails = ({ user, onUpdate }) => {
   const [form, setForm] = useState({});
   const [isEditing, setIsEditing] = useState(false);
 
+  // Initialize form when user changes
   useEffect(() => {
     if (user) {
       setForm({ ...user });
@@ -12,26 +13,33 @@ const UsersDetails = ({ user, onUpdate }) => {
     }
   }, [user]);
 
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Save changes - only update the user passed to this component
   const handleSave = () => {
     if (!onUpdate) return;
 
-    onUpdate({
+    // Create updated user object
+    const updatedUser = {
       ...user,
       role: form.role,
       department: form.department,
       gender: form.gender,
-      joiningDate: form.joiningDate, // 🔹 Save updated joining date
-    });
+      joiningDate: form.joiningDate,
+    };
+
+    // Call parent onUpdate function with updated user
+    onUpdate(updatedUser);
 
     setIsEditing(false);
     toast.success("User updated successfully!");
   };
 
+  // Cancel editing
   const handleCancel = () => {
     setForm({ ...user });
     setIsEditing(false);
@@ -45,7 +53,7 @@ const UsersDetails = ({ user, onUpdate }) => {
         Edit User Details
       </h2>
 
-      {/* First Name, Last Name, Email, Contact - always read-only */}
+      {/* Read-only fields */}
       {["firstName", "lastName", "email", "contact"].map((field) => (
         <div key={field} className="flex flex-col">
           <label className="text-gray-500 font-medium mb-1">{field}:</label>
@@ -58,7 +66,7 @@ const UsersDetails = ({ user, onUpdate }) => {
         </div>
       ))}
 
-      {/* Joining Date - editable in edit mode */}
+      {/* Editable fields */}
       <div className="flex flex-col">
         <label className="text-gray-500 font-medium mb-1">Joining Date:</label>
         <input
@@ -73,7 +81,6 @@ const UsersDetails = ({ user, onUpdate }) => {
         />
       </div>
 
-      {/* Gender */}
       <div className="flex flex-col">
         <label className="text-gray-500 font-medium mb-1">Gender:</label>
         <select
@@ -92,7 +99,6 @@ const UsersDetails = ({ user, onUpdate }) => {
         </select>
       </div>
 
-      {/* Role */}
       <div className="flex flex-col">
         <label className="text-gray-500 font-medium mb-1">Role:</label>
         <select
@@ -110,7 +116,6 @@ const UsersDetails = ({ user, onUpdate }) => {
         </select>
       </div>
 
-      {/* Department */}
       <div className="flex flex-col">
         <label className="text-gray-500 font-medium mb-1">Department:</label>
         <select
@@ -145,7 +150,7 @@ const UsersDetails = ({ user, onUpdate }) => {
         {!isEditing ? (
           <button
             onClick={() => setIsEditing(true)}
-            className=" w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-semibold"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-semibold"
           >
             Edit
           </button>

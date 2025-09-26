@@ -4,27 +4,28 @@ import userImage from "../../../assets/user.png";
 import { useUser } from "../../../context/UserContext";
 
 const NavSection = () => {
-  const [currentTime, setTime] = useState(moment().format("D MMM | h:mm a"));
+  const { profile, loading } = useUser(); // Only get the logged-in user's profile
+  const [currentTime, setCurrentTime] = useState(moment().format("D MMM | h:mm a"));
 
-  const { user, profile, loading } = useUser();
-
-  if (loading) return <p>Loading user info...</p>;
-  if (!user) return <p>No user logged in.</p>;
-
+  // Update time every second
   useEffect(() => {
     const interval = setInterval(() => {
-      setTime(moment().format("D MMM | h:mm a"));
+      setCurrentTime(moment().format("D MMM | h:mm a"));
     }, 1000);
     return () => clearInterval(interval);
   }, []);
 
+  // Loading and not-logged-in states
+  if (loading) return <p className="text-center py-2">Loading user info...</p>;
+  if (!profile) return <p className="text-center py-2">No user logged in.</p>;
+
   return (
-    <div className="flex items-center justify-between w-full px-2 sm:px-6 py-1 sm:py-2">
+    <div className="flex items-center justify-between w-full px-2 sm:px-6 py-1 sm:py-2 bg-white shadow-sm ">
       {/* Left side - User Info */}
       <div className="ml-2 sm:ml-6 text-sm sm:text-base">
         <p className="capitalize">
           <strong className="hidden sm:inline">USER: </strong>
-          {profile?.firstName} {profile?.lastName} ({profile?.role})
+          {profile.firstName} {profile.lastName} <span className="text-sm font-semibold text-gray-500">( {profile.role} )</span>
         </p>
       </div>
 
