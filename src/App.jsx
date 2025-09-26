@@ -14,7 +14,7 @@ import About from "./components/About";
 import AdminDashboard from "./components/Dashboard/adminDashBoard/AdminDashboard";
 import ClientDashboard from "./components/Dashboard/clientDashboard/ClientDashboard";
 import DashboardContent from "./components/allLinks/dashboard-content/DashboardContent";
-import AllUsers from "./components/allLinks/AllUsers";
+import AllUsers from "./components/allLinks/allUsers/AllUsers";
 import TaskAssign from "./components/allLinks/taskAssign/TaskAssign";
 import TaskStatus from "./components/allLinks/taskStatus/TaskStatus";
 import CreateGroup from "./components/allLinks/createGroup/CreateGroup";
