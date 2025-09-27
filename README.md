@@ -14,7 +14,43 @@ Frontend: https://whats-task.vercel.app/
 
 ## Directory Structure
 
-[Folder And File Structure] (src/assets/Folder-structure.png)
+WHATSTASK
+├── node_modules
+├── src
+│   ├── components
+│   │   ├── allLinks
+│   │   ├── createGroup
+│   │   ├── dashboardContent
+│   │   ├── newNotification.jsx
+│   │   ├── notificationCard.jsx
+│   │   ├── taskAssign.jsx
+│   │   ├── taskModel.jsx
+│   │   ├── userCard.jsx
+│   │   ├── taskStatus.jsx
+│   │   ├── todayAlert.jsx
+│   │   ├── addUser.jsx
+│   │   ├── adminDashboard.jsx
+│   │   ├── navSection.jsx
+│   │   ├── userDashboard.jsx
+│   │   └── userContext.jsx
+│   ├── firebase
+│   │   └── firebaseConfig.js
+│   ├── hooks
+│   │   └── useTaskNotifications.jsx
+│   ├── pages
+│   │   ├── about.jsx
+│   │   ├── login.jsx
+│   │   └── routeProtected.jsx
+│   ├── App.css
+│   ├── App.jsx
+│   ├── index.css
+│   ├── main.jsx
+│   ├── vite.config.js
+├── .gitignore
+├── index.html
+├── package-lock.json
+├── package.json
+└── README.md
 
 ## Features
 
