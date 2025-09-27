@@ -14,7 +14,7 @@ Frontend: https://whats-task.vercel.app/
 
 ## Directory Structure
 
-Folder And File Structure(src/assets/Folder-Strucute.png)
+[Folder And File Structure] (src/assets/Folder-structure.png)
 
 ## Features
 
