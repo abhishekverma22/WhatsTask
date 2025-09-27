@@ -5,12 +5,13 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
 
 // Public components
-import Login from "./components/Login";
-import About from "./components/About";
+import Login from "./pages/Login";
+import About from "./pages/About";
 
 // Dashboard components
 import AdminDashboard from "./components/Dashboard/adminDashBoard/AdminDashboard";
-import ClientDashboard from "./components/Dashboard/clientDashboard/ClientDashboard";
+
+// Admin pages
 import DashboardContent from "./components/allLinks/dashboard-content/DashboardContent";
 import AllUsers from "./components/allLinks/allUsers/AllUsers";
 import TaskAssign from "./components/allLinks/taskAssign/TaskAssign";
@@ -27,13 +28,13 @@ const App = () => {
       <Toaster position="top-right" reverseOrder={false} />
       <Router>
         <Routes>
-          {/* Public routes */}
+          {/* ---------- Public routes ---------- */}
           <Route path="/" element={<Login />} />
           <Route path="/about" element={<About />} />
 
-          {/* Protected routes */}
+          {/* ---------- Protected routes ---------- */}
           <Route element={<ProtectedRoute />}>
-            {/* Admin dashboard with nested routes */}
+            {/* ===== Admin Dashboard ===== */}
             <Route path="/admin-dashboard" element={<AdminDashboard />}>
               <Route index element={<DashboardContent />} />
               <Route path="dashboard-content" element={<DashboardContent />} />
@@ -46,12 +47,9 @@ const App = () => {
               <Route path="add-user" element={<AddUser />} />
               <Route path="user-profile" element={<UserProfile />} />
             </Route>
-
-            {/* Client dashboard */}
-            <Route path="/user-dashboard" element={<ClientDashboard />} />
           </Route>
 
-          {/* Catch-all */}
+          {/* ---------- Catch-all ---------- */}
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </Router>
